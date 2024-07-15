@@ -43,25 +43,25 @@ This tool allows you to perform various feature extraction techniques on images,
 
 This feature allows you to apply various feature extraction techniques to a single image.
 
-    **Upload an Image**: Use the image upload button to upload an image.
-    **Select a Transformation**: Choose from FFT, LBP, Gabor, or Statistical features using the radio buttons.
-    **Process the Image**: Click the "Process" button to apply the selected transformation and view the result.
+1. **Upload an Image**: Use the image upload button to upload an image.
+2. **Select a Transformation**: Choose from FFT, LBP, Gabor, or Statistical features using the radio buttons.
+3. **Process the Image**: Click the "Process" button to apply the selected transformation and view the result.
 
 #### Batch Processing
 
 This feature allows you to process multiple images in one or more folders concurrently.
 
-    **Add Input Folder Paths**: Use the multi-select dropdown to add multiple input folder paths.
-    **Specify Output Folder Path**: Enter the path where the results will be saved.
-    **Select Transformations**: Choose which transformations to apply (FFT, LBP, Gabor).
-    **Run the Batch Processing**: Click the "Run" button to start batch processing.
+1. **Add Input Folder Paths**: Use the multi-select dropdown to add multiple input folder paths.
+2. **Specify Output Folder Path**: Enter the path where the results will be saved.
+3. **Select Transformations**: Choose which transformations to apply (FFT, LBP, Gabor).
+4. **Run the Batch Processing**: Click the "Run" button to start batch processing.
 
 **Output**:
 
-    For each image, a text file containing the mean, variance, skewness, and kurtosis values will be saved in the output folder.
-    Transformed images will be saved in respective sub-folders (FFT, LBP, Gabor) within the output folder.
+- For each image, a text file containing the mean, variance, skewness, and kurtosis values will be saved in the output folder.
+- Transformed images will be saved in respective sub-folders (FFT, LBP, Gabor) within the output folder.
 
-Documentation
+**Documentation**
 
 The Documentation tab provides detailed information about the tool's features and usage.
 
