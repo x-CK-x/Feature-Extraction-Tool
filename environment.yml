@@ -1,0 +1,13 @@
+name: feature_extraction_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - gradio
+  - numpy
+  - opencv-python-headless
+  - matplotlib
+  - scikit-image
+  - scipy
+  - pillow
+  - tqdm
