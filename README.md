@@ -12,8 +12,8 @@ This tool allows you to perform various feature extraction techniques on images,
 
 1. **Clone the Repository**:
    ```sh
-   git clone <repository_url>
-   cd <repository_directory>
+   git clone [<repository_url>](https://github.com/x-CK-x/Feature-Extraction-Tool.git)
+   cd Feature-Extraction-Tool
    ```
 2. **Create the Conda Environment**:
    ```sh
