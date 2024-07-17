@@ -1,10 +1,11 @@
 import gradio as gr
 import os
-from PIL import Image, UnidentifiedImageError, ImageFile
+from PIL import Image, UnidentifiedImageError, ImageFile, TiffImagePlugin
 from tqdm import tqdm
 import shutil
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
+import warnings
 
 # Enable loading of truncated images
 ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -25,14 +26,22 @@ compression_levels = {
 
 def is_image_file(file_path):
     try:
-        with Image.open(file_path) as img:
-            img.verify()  # Verify that it is, in fact, an image
-            # Try to get EXIF data (this can fail for some corrupted images)
-            img._getexif()
+        with warnings.catch_warnings(record=True) as caught_warnings:
+            warnings.simplefilter("always")
+            with Image.open(file_path) as img:
+                img.verify()  # Verify that it is, in fact, an image
+                # Try to get EXIF data (this can fail for some corrupted images)
+                img._getexif()
+            for warning in caught_warnings:
+                if issubclass(warning.category, UserWarning) and "Corrupt EXIF data" in str(warning.message):
+                    print(f"Corrupt EXIF data in file: {file_path}")
+                    return False
         return True
-    except (UnidentifiedImageError, IOError, OSError, Image.DecompressionBombError, AttributeError) as e:
+    except (UnidentifiedImageError, IOError, OSError, Image.DecompressionBombError, AttributeError, TypeError) as e:
         if isinstance(e, AttributeError) and "_getexif" in str(e):
             print(f"EXIF error in file: {file_path}")
+        if isinstance(e, TypeError) and "object of type 'IFDRational' has not len()" in str(e):
+            print(f"IFDRational error in file: {file_path}")
         return False
 
 def hash_image(image_path):
@@ -51,7 +60,10 @@ def find_and_move_bad_files(input_folders, output_folder, num_cpus):
             print(f"Moving bad file: {image_path}")
             # Create the relative output path
             relative_path = os.path.relpath(root, input_folder)
-            output_path = os.path.join(output_folder, relative_path)
+            if "IFDRational error" in image_path:
+                output_path = os.path.join(output_folder, relative_path, 'IFDRational_error_imgs')
+            else:
+                output_path = os.path.join(output_folder, relative_path)
             os.makedirs(output_path, exist_ok=True)
             # Move the bad file
             shutil.move(image_path, os.path.join(output_path, image_file))
@@ -153,6 +165,7 @@ with gr.Blocks() as demo:
         - **Detect and Move Bad Files**:
           - Scans the selected input folders for corrupted or unsupported images.
           - Moves identified bad files to the output folder, preserving the directory structure.
+          - Specifically catches and handles corrupt EXIF data errors.
 
         - **Detect and Move Duplicates**:
           - Scans the selected input folders for duplicate images using SHA-256 hashing.
