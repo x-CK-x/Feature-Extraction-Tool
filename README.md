@@ -79,5 +79,32 @@ The tool scans the input folders for corrupted or unsupported image files before
 - tif
 - webp
 
+-----------------------------------------
+
+## Dataset Pruning Tool
+
+### Overview
+This tool allows you to manage your image dataset by detecting and moving corrupted/unsupported images, as well as identifying and handling duplicate images.
+
+### Tabs
+- **Detect and Move Bad Files**: Detects corrupted or unsupported image files and moves them to a specified output folder while preserving the directory structure.
+- **Detect and Move Duplicates**: Identifies duplicate images across multiple input folders and moves them to a 'duplicates' folder within the mirrored directory structure in the output folder.
+
+### How to Use
+1. **Select Input Folders**: Use the dropdown menu to add multiple input folder paths.
+2. **Specify Output Folder**: Enter the path where the results will be saved.
+3. **Choose Number of CPUs**: Use the slider to select the number of CPUs for concurrent processing.
+4. **Select Mode**: Choose between "Detect and Move Bad Files" and "Detect and Move Duplicates".
+5. **Run the Process**: Click the "Run" button to start the processing.
+
+### Modes
+- **Detect and Move Bad Files**:
+ - Scans the selected input folders for corrupted or unsupported images.
+ - Moves identified bad files to the output folder, preserving the directory structure.
+
+- **Detect and Move Duplicates**:
+ - Scans the selected input folders for duplicate images using SHA-256 hashing.
+ - Moves duplicate images to a 'duplicates' folder within the mirrored directory structure in the output folder.
+ - Keeps the less compressed image format if duplicates with different file types are found.
 
 
