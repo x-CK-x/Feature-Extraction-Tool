@@ -212,9 +212,6 @@ with gr.Blocks() as demo:
         - `scipy`
         - `pillow`
         - `tqdm`
-
-        ### Contact
-        For any questions or issues, please contact [Your Contact Information].
         """)
 
 demo.launch(share=False)
