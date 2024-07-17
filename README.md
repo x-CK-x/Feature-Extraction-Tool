@@ -107,4 +107,11 @@ This tool allows you to manage your image dataset by detecting and moving corrup
  - Moves duplicate images to a 'duplicates' folder within the mirrored directory structure in the output folder.
  - Keeps the less compressed image format if duplicates with different file types are found.
 
+### Run Instructions
 
+```sh
+conda activate feature_extraction_env
+```
+```sh
+python detect_and_move_bad_files.py
+```
